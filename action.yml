@@ -1,0 +1,30 @@
+# action.yaml
+name: 'delete ECR images Action by regex'
+description: 'A GitHub Action that takes a regex, ECR registryid and ECR repository and deletes the images'
+inputs:
+  regex:
+    description: 'Enter a regex pattern'
+    required: true
+  repository_name:
+    description: 'Enter a repo name'
+    required: true    
+  registry_id:
+    description: 'Enter a registry id'
+    required: true 
+  dry_run:
+    default: false
+    description: 'true if you want dry run'         
+runs:
+  using: 'composite'    
+  steps:
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'  
+    - name: Install Dependencies
+      run: pip3 install -r ./scripts/aws/delete-ecr-images/requirements.txt
+      shell: bash
+    - name: delete images
+      run: python ./scripts/aws/delete-ecr-images/main.py --regex "${{ inputs.regex }}" --repository_name "${{ inputs.repository_name }}" --registry_id "${{ inputs.registry_id }}" --dry ${{ inputs.dry_run }} 
+      shell: bash
+
