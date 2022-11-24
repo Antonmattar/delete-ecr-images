@@ -22,9 +22,9 @@ runs:
       with:
         python-version: '3.9'  
     - name: Install Dependencies
-      run: pip3 install -r ./requirements.txt
+      run: pip3 install -r "${{ github.action_path }}/requirements.txt"
       shell: bash
     - name: delete images
-      run: python ./main.py --regex "${{ inputs.regex }}" --repository_name "${{ inputs.repository_name }}" --registry_id "${{ inputs.registry_id }}" --dry ${{ inputs.dry_run }} 
+      run: python "${{ github.action_path }}/main.py" --regex "${{ inputs.regex }}" --repository_name "${{ inputs.repository_name }}" --registry_id "${{ inputs.registry_id }}" --dry ${{ inputs.dry_run }} 
       shell: bash
 
