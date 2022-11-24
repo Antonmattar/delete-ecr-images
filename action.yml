@@ -22,9 +22,9 @@ runs:
       with:
         python-version: '3.9'  
     - name: Install Dependencies
-      run: pip3 install -r ./scripts/aws/delete-ecr-images/requirements.txt
+      run: pip3 install -r ./requirements.txt
       shell: bash
     - name: delete images
-      run: python ./scripts/aws/delete-ecr-images/main.py --regex "${{ inputs.regex }}" --repository_name "${{ inputs.repository_name }}" --registry_id "${{ inputs.registry_id }}" --dry ${{ inputs.dry_run }} 
+      run: python ./main.py --regex "${{ inputs.regex }}" --repository_name "${{ inputs.repository_name }}" --registry_id "${{ inputs.registry_id }}" --dry ${{ inputs.dry_run }} 
       shell: bash
 
